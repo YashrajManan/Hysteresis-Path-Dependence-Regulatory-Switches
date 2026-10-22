@@ -23,8 +23,7 @@ order-dependence rather than assuming either from the presence of feedback alone
 
 ## 3. Data fetch
 
-None — a deliberate, disclosed exception to this portfolio's usual API-first-data convention, the same
-category as #23B. The feedback ODE model and its bifurcation structure in stimulus space are the object of
+--NOT APPLICABLE-- The feedback ODE model and its bifurcation structure in stimulus space are the object of
 study. An optional empirical anchor (the real, published *Xenopus* oocyte maturation bistable switch,
 Ferrell & Machida 1998) is used only afterward, as a plausibility check against a real documented
 hysteretic biological system, not as primary evidence.
