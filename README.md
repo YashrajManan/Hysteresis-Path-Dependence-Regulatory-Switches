@@ -2,8 +2,7 @@
 
 When does a regulatory circuit's response to a stimulus depend on its history, not just the current
 signal? A derived closed-form condition, a directly simulated hysteresis loop, and a constructed,
-genuinely order-dependent combinatorial pulse-sequence demonstration — reusing #23B's bifurcation
-methodology for a structurally different question.
+genuinely order-dependent combinatorial pulse-sequence demonstration.
 
 ## 1. Aim
 
@@ -14,8 +13,8 @@ order-dependence rather than assuming either from the presence of feedback alone
 ## 2. Objective
 
 1. Build a minimal single-variable positive-autoregulation model driven by an external stimulus.
-2. Find the saddle-node (fold) bifurcation points bounding its bistable region in stimulus space, reusing
-   #23B's bifurcation/continuation methodology.
+2. Find the saddle-node (fold) bifurcation points bounding its bistable region in stimulus space, via
+   numerical continuation cross-checked against a symbolic derivation.
 3. Derive the exact closed-form condition for that bistable region to exist at all.
 4. Directly simulate a stimulus-ramp hysteresis loop.
 5. Systematically test every ordering of a small set of discrete stimulus pulses to check whether the
@@ -23,11 +22,11 @@ order-dependence rather than assuming either from the presence of feedback alone
 
 ## 3. Data fetch
 
-None — a deliberate, disclosed exception to this portfolio's usual API-first-data convention, the same
-category as #23B. The feedback ODE model and its bifurcation structure in stimulus space are the object of
-study. An optional empirical anchor (the real, published *Xenopus* oocyte maturation bistable switch,
-Ferrell & Machida 1998) is used only afterward, as a plausibility check against a real documented
-hysteretic biological system, not as primary evidence.
+None required for the core result: this project derives an exact bifurcation condition and directly
+demonstrates path-dependence in a feedback model, which needs full control over the stimulus history
+applied — something only a simulation can provide. A real, published bistable biological switch (Ferrell &
+Machida 1998, *Xenopus* oocyte maturation) is used afterward as a plausibility check against documented
+real biology, keeping the exact mathematical result honestly connected to an actual system.
 
 ## 4. Data describe
 
@@ -40,8 +39,8 @@ symbolic derivation, direct ODE simulation, and exhaustive combinatorial enumera
 1. Define `dx/dtau = alpha*x^n/(1+x^n) + beta*u - x`; derive the local stability criterion
    (`gprime(x,alpha,n) < 1`).
 2. Find all real steady states at a representative stimulus via root-finding.
-3. Find the saddle-node fold points in stimulus space (`du/dx=0`, i.e. `gprime(x,alpha,n)=1`) — reusing
-   #23B's methodology with `u` as the swept variable instead of a model parameter.
+3. Find the saddle-node fold points in stimulus space (`du/dx=0`, i.e. `gprime(x,alpha,n)=1`), with `u` as
+   the swept variable rather than a model parameter.
 4. Derive the closed-form existence condition `alpha_crit(n)` via SymPy; cross-check against a numeric
    fold-existence sweep.
 5. Simulate a forward/backward stimulus ramp (explicit Euler, non-negativity floor) to directly produce
@@ -94,15 +93,14 @@ cellular signaling.
 
 An ODE integrator can produce biologically meaningless states (negative concentrations) under parameter
 ranges that look unremarkable, if nothing in the simulation enforces a model's known physical bounds — a
-non-negativity floor was a real correctness requirement here, not an optional safeguard. SymPy's
+non-negativity floor was a real correctness requirement here, not an optional safeguard. A symbolic
 simplifier does not always find the cleanest equivalent form of a correct expression on the first attempt;
-how a substitution is staged can determine whether the result is recognizable, and two differently-
-simplified expressions being the same function needs numeric confirmation, not a visual judgment. A
-methodology built for one bifurcation question (#23B's fold-detection-plus-symbolic-cross-check) transfers
-cleanly to a structurally different one, demonstrating the technique — not just the specific model — is the
-reusable asset. Finally, an "obvious" first attempt at demonstrating order-dependence showed none at all;
-treating that as a real, informative finding and searching the relevant timescale parameters (rather than
-assuming the effect and tuning blindly until it appeared) is what actually found the genuine
+two differently-simplified expressions being the same function needs numeric confirmation, not a visual
+judgment. A fold-detection-plus-symbolic-cross-check methodology built for one bifurcation question
+transfers cleanly to a structurally different one — demonstrating the technique, not just the specific
+model, is the reusable asset. Finally, an "obvious" first attempt at demonstrating order-dependence showed
+none at all; treating that as a real, informative finding and searching the relevant timescale parameters
+(rather than assuming the effect and tuning blindly until it appeared) is what actually found the genuine
 order-dependent regime.
 
 ## 9. Caveats
